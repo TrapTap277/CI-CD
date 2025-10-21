@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using NUnit.Framework;
+using UnityEngine.Assertions;
 
 namespace Runtime.Core.Controllers
 {

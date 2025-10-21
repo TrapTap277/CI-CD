@@ -2,7 +2,7 @@
 using Unity.FPS.Gameplay;
 using UnityEngine;
 
-namespace Tests.Common
+namespace Editor.Tests.Common
 {
     public class Setup
     {

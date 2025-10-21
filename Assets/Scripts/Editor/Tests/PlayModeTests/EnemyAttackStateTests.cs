@@ -1,6 +1,6 @@
 using System.Collections;
+using Editor.Tests.Common;
 using FluentAssertions;
-using Tests.Common;
 using Unity.FPS.Game;
 using Unity.FPS.Gameplay;
 using UnityEngine;
@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using Random = UnityEngine.Random;
 
-namespace Tests.PlayModeTests
+namespace Editor.Tests.PlayModeTests
 {
     public class EnemyAttackStateTests
     {
@@ -25,7 +25,7 @@ namespace Tests.PlayModeTests
 
             yield return SceneManager.LoadSceneAsync(MainScene);
 
-            var playerHealth = GetPlayerHealth();
+            Health playerHealth = GetPlayerHealth();
             
             // Act.
 

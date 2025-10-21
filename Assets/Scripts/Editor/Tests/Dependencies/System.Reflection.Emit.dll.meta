@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5ff756faa84864f429432cee44a6c192
+guid: 3b3b17b22d2ed134e88c28199346593e
 PluginImporter:
   externalObjects: {}
   serializedVersion: 3
@@ -12,40 +12,44 @@ PluginImporter:
   validateReferences: 1
   platformData:
     Android:
-      enabled: 1
+      enabled: 0
       settings: {}
     Any:
-      enabled: 1
+      enabled: 0
       settings:
-        Exclude Android: 0
+        Exclude Android: 1
         Exclude Editor: 0
-        Exclude Linux64: 0
-        Exclude OSXUniversal: 0
-        Exclude Win: 0
-        Exclude Win64: 0
-        Exclude iOS: 0
+        Exclude Linux64: 1
+        Exclude OSXUniversal: 1
+        Exclude Win: 1
+        Exclude Win64: 1
+        Exclude iOS: 1
     Editor:
       enabled: 1
       settings:
         DefaultValueInitialized: true
     Linux64:
-      enabled: 1
-      settings: {}
+      enabled: 0
+      settings:
+        CPU: None
     OSXUniversal:
-      enabled: 1
-      settings: {}
+      enabled: 0
+      settings:
+        CPU: None
     Win:
-      enabled: 1
-      settings: {}
+      enabled: 0
+      settings:
+        CPU: None
     Win64:
-      enabled: 1
-      settings: {}
+      enabled: 0
+      settings:
+        CPU: None
     WindowsStoreApps:
       enabled: 0
       settings:
         CPU: AnyCPU
     iOS:
-      enabled: 1
+      enabled: 0
       settings: {}
   userData: 
   assetBundleName: 

@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using static Application.Constants.PathConstants;
 
-namespace Tests.Common
+namespace Editor.Tests.Common
 {
     public class Create
     {

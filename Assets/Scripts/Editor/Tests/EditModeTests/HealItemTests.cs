@@ -1,10 +1,9 @@
-﻿using FluentAssertions;
+﻿using Editor.Tests.Common;
+using FluentAssertions;
 using NUnit.Framework;
-using Tests.Common;
 using Unity.FPS.Game;
-using UnityEngine.SceneManagement;
 
-namespace Tests.EditModeTests
+namespace Editor.Tests.EditModeTests
 {
     public class HealItemTests
     {

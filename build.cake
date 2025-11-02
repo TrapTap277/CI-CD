@@ -18,6 +18,7 @@ Task("Build-Android")
 
         UnityEditor(unityPath, new UnityEditorArguments() // use verbosity instead of unity path
         {
+            ProjectPath = @"D:\Projects\Unity\CICDLearn",
             ExecuteMethod = "Editor.Builder.BuildAndroid",
             BuildTarget = Android
         });

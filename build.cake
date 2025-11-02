@@ -18,7 +18,7 @@ Task("Build-Android")
 
         UnityEditor(unityPath, new UnityEditorArguments() // use verbosity instead of unity path
         {
-            ProjectPath = "."
+            ProjectPath = ".",
             ExecuteMethod = "Editor.Builder.BuildAndroid",
             BuildTarget = Android
         });

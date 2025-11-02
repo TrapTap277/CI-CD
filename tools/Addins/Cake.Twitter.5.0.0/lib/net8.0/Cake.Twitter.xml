@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cake.Twitter</name>
+    </assembly>
+    <members>
+        <member name="T:Cake.Twitter.TwitterAliases">
+            <summary>
+            <para>Contains functionality related to <see href="https://dev.twitter.com/rest/public">Twitter REST API</see>.</para>
+            <para>
+            In order to use the commands for this addin, include the following in your build.cake file to download and
+            reference from NuGet.org:
+            <code>
+            #addin Cake.Twitter
+            </code>
+            </para>
+            </summary>
+        </member>
+        <member name="M:Cake.Twitter.TwitterAliases.TwitterSendTweet(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String)">
+             <summary>
+             Send a Tweet using the Twitter REST API.
+             </summary>
+             <param name="context">The Cake Context.</param>
+             <param name="oAuthConsumerKey">The Twitter Consumer Key.</param>
+             <param name="oAuthConsumerSecret">The Twitter Consumer Secret.</param>
+             <param name="accessToken">The Twitter Application Access Token.</param>
+             <param name="accessTokenSecret">The Twitter Application Token Secret.</param>
+             <param name="message">The message to tweet.</param>
+             <example>
+             <code>
+                 var oAuthConsumerKey        = EnvironmentVariable("TWITTER_CONSUMER_KEY");
+                 var oAuthConsumerSecret = EnvironmentVariable("TWITTER_CONSUMER_SECRET");
+                 var accessToken = EnvironmentVariable("TWITTER_ACCESS_TOKEN");
+                 var accessTokenSecret = EnvironmentVariable("TWITTER_ACCESS_TOKEN_SECRET");
+            
+                 TwitterSendTweet(oAuthConsumerKey, oAuthConsumerSecret, accessToken, accessTokenSecret, "Testing, 1, 2, 3");
+             </code>
+             </example>
+        </member>
+        <member name="T:Cake.Twitter.TwitterProvider">
+            <summary>
+            Contains functionality related to Twitter API.
+            </summary>
+        </member>
+        <member name="M:Cake.Twitter.TwitterProvider.#ctor(System.String,System.String,System.String,System.String)">
+             <summary>
+             Initializes a new instance of the <see cref="T:Cake.Twitter.TwitterProvider"/> class.
+             Creates an object for sending tweets to Twitter using Single-user OAuth.
+            
+             Get your access keys by creating an app at apps.twitter.com then visiting the
+             "Keys and Access Tokens" section for your app. They can be found under the
+             "Your Access Token" heading.
+             </summary>
+             <param name="consumerKey">The Twitter Consumer Key.</param>
+             <param name="consumerKeySecret">The Twitter Consumer Key Secret.</param>
+             <param name="accessToken">The Twitter Access Token.</param>
+             <param name="accessTokenSecret">"The Twitter Access Token Secret.</param>
+        </member>
+        <member name="M:Cake.Twitter.TwitterProvider.Tweet(System.String)">
+            <summary>
+            Sends a tweet with the supplied text and returns the response from the Twitter API.
+            </summary>
+            <param name="text">The text to send in the Tweet.</param>
+            <returns>The text from the request made to Twitter.</returns>
+        </member>
+        <member name="T:Cake.Twitter.TwitterProviderExtensions">
+            <summary>
+            A collection of Extensions for the <see cref="T:Cake.Twitter.TwitterProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:Cake.Twitter.TwitterProviderExtensions.Join``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            A simple Join method for IEnumerable.
+            </summary>
+            <typeparam name="T">The generic type to Join on.</typeparam>
+            <param name="items">The items that need to be joined.</param>
+            <param name="separator">The separator to be used when joining the items.</param>
+            <returns>A string with all the joined items.</returns>
+        </member>
+        <member name="M:Cake.Twitter.TwitterProviderExtensions.Concat``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+            A simple Concat method for IEnumerable.
+            </summary>
+            <typeparam name="T">The generic type to concatentate on.</typeparam>
+            <param name="items">The items that need to be concatenated.</param>
+            <param name="value">The value that is to be concatenated into the items.</param>
+            <returns>An IEnumerable with the items concatenated to it.</returns>
+        </member>
+        <member name="M:Cake.Twitter.TwitterProviderExtensions.EncodeDataString(System.String)">
+            <summary>
+            A method to encode the data string ready for sending.
+            </summary>
+            <param name="value">The string to be encoded.</param>
+            <returns>The encoded string.</returns>
+        </member>
+    </members>
+</doc>

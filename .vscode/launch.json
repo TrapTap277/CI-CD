@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "C:/Users/Purple/AppData/Local/Temp/dotnet/runfile/build-569a523a6b6c56034f214bedbc127b84172fda5fe7300edf2f340e4148da7eb5/bin/Debug/net8.0/build.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "name": "Attach to Unity",
+            "type": "vstuc",
+            "request": "attach"
+        }
+    ]
+}

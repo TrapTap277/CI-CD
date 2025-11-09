@@ -1,28 +1,29 @@
-using static Cake.Unity.Arguments.BuildTarget;
-
 #addin nuget:?package=Cake.Unity&version=0.9.0
 
-var target = Argument("target", "Build-Android");
+const string Clean = "Clean";
+const string BuildAndroid = "Build-Android";
+const string ArtifactsPath = @"./artifacts";
 
-Task("Clean-Artifacts")
+var targetTask = Argument("target", BuildAndroid);
+
+Task(Clean)
     .Does(() =>
 {
-    CleanDirectory($"./artifacts");
+    CleanDirectory(ArtifactsPath);
 });
 
-Task("Build-Android")
-    .IsDependentOn("Clean-Artifacts")
+Task(BuildAndroid)
+    .IsDependentOn(Clean)
     .Does(() =>
+{
+    var unityEditor = FindUnityEditor();
+
+    UnityEditor(unityEditor.Path, new UnityEditorArguments() 
     {
-        var unityPath = @"C:\Program Files\Unity\Hub\Editor\6000.2.6f2\Editor\Unity.exe";
-
-        UnityEditor(unityPath, new UnityEditorArguments() // use verbosity instead of unity path
-        {
-            ProjectPath = ".",
-            ExecuteMethod = "Editor.Builder.BuildAndroid",
-            BuildTarget = Android
-        });
+        BuildTarget = BuildTarget.Android,
+        ProjectPath = ".",
+        ExecuteMethod = "Editor.Builder.BuildAndroid"
     });
+});
 
-
-RunTarget(target);
+RunTarget(targetTask);

@@ -13,5 +13,6 @@ jobs:
   DependantJob:
     needs: FirstJob
     runs-on: ubuntu-latest
+    if: always()
     steps:
       - run: echo Dependant job is here!

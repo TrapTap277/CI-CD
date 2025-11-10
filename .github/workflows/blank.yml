@@ -9,3 +9,9 @@ jobs:
     steps:
       - run: echo "This is my first job! Greetings!"
       - run: echo "Current branch - ${{ github.ref_name }}"
+      - run: exit 1
+  DependantJob:
+    needs: FirstJob
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Dependant job is here!

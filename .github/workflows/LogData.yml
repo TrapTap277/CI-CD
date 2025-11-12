@@ -9,16 +9,20 @@ env:
     JOB: ${{ github.job }}
     TRIGGERING_ACTOR: ${{ github.triggering_actor }}
 
+log-actor: &common_actor_log
+  - run: echo "Current ACTOR - $ACTOR" |
+      echo "Current EVENT - $EVENT"
+      echo "Current JOB - $JOB"
+      echo "Current TRIGGERING_ACTOR - $TRIGGERING_ACTOR"
+    
 jobs:    
   LogCurrentActor: 
-    runs-on: ubuntu-latest
-    steps:
-      - &common-actor-log
-      - run: echo "Current ACTOR - ACTOR"
+    runs-on: ubuntu-latest    
+    steps: *common_actor_log
   DetailedActorLog:
     runs-on: ubuntu-latest
     steps:
-      - *common-actor-log
+      - run: *common_actor_log # issue
       - run: |
           echo "Log current actor"
           echo "------------------"          

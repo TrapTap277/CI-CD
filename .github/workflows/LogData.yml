@@ -3,29 +3,29 @@ run-name: Log Actor
 on: push
 
 env:
-    ACTOR: ${{ github.actor }}
-    ACTOR_ID: ${{ github.actor_id }}
-    EVENT: ${{ github.event_name }}
-    JOB: ${{ github.job }}
-    TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+  ACTOR: ${{ github.actor }}
+  ACTOR_ID: ${{ github.actor_id }}
+  EVENT: ${{ github.event_name }}
+  JOB: ${{ github.job }}
+  TRIGGERING_ACTOR: ${{ github.triggering_actor }}
 
-log-actor: &common_actor_log
-  - run: echo "Current ACTOR - $ACTOR" |
-      echo "Current EVENT - $EVENT"
-      echo "Current JOB - $JOB"
-      echo "Current TRIGGERING_ACTOR - $TRIGGERING_ACTOR"
-    
-jobs:    
-  LogCurrentActor: 
-    runs-on: ubuntu-latest    
-    steps: *common_actor_log
+jobs:
+  LogCurrentActor:
+    runs-on: ubuntu-latest
+    steps: &common_actor_log
+      - run: |
+          echo "Current ACTOR - $ACTOR"
+          echo "Current EVENT - $EVENT"
+          echo "Current JOB - $JOB"
+          echo "Current TRIGGERING_ACTOR - $TRIGGERING_ACTOR"
+
   DetailedActorLog:
     runs-on: ubuntu-latest
     steps:
-      - run: *common_actor_log # issue
+      - *common_actor_log
       - run: |
           echo "Log current actor"
-          echo "------------------"          
+          echo "------------------"
       - run: |
           echo "Actor: $ACTOR"
-          echo "Actor's id $ACTOR_ID"
+          echo "Actor's id: $ACTOR_ID"

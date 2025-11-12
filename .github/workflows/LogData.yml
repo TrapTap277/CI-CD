@@ -11,13 +11,14 @@ env:
 
 jobs:    
   LogCurrentActor: 
-    runs-on: ubuntu-latest    
-    steps: &common_actor_log
+    runs-on: ubuntu-latest
+    steps:
+      - &common-actor-log
       - run: echo "Current ACTOR - ACTOR"
   DetailedActorLog:
     runs-on: ubuntu-latest
     steps:
-      - run: *common_actor_log # issue
+      - *common-actor-log
       - run: |
           echo "Log current actor"
           echo "------------------"          

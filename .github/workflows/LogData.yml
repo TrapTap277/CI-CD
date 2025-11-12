@@ -12,9 +12,8 @@ env:
 jobs:    
   LogCurrentActor: 
     runs-on: ubuntu-latest    
-    steps:
-      - &common_actor_log
-        - run: echo "Current ACTOR - ACTOR"
+    steps: &common_actor_log
+      - run: echo "Current ACTOR - ACTOR"
   DetailedActorLog:
     runs-on: ubuntu-latest
     steps:

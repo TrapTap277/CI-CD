@@ -12,11 +12,12 @@ env:
 jobs:    
   LogCurrentActor: 
     runs-on: ubuntu-latest    
-    steps: &common_actor_log # issue
-      - run: echo "Current ACTOR - $ACTOR"
-      - run: echo "Current EVENT - $EVENT"
-      - run: echo "Current JOB - $JOB"
-      - run: echo "Current TRIGGERING_ACTOR - $TRIGGERING_ACTOR"
+    steps:
+      - &common_actor_log
+        - run: echo "Current ACTOR - $ACTOR"
+        - run: echo "Current EVENT - $EVENT"
+        - run: echo "Current JOB - $JOB"
+        - run: echo "Current TRIGGERING_ACTOR - $TRIGGERING_ACTOR"
   DetailedActorLog:
     runs-on: ubuntu-latest
     steps:

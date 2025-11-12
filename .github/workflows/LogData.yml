@@ -20,10 +20,10 @@ jobs:
   DetailedActorLog:
     runs-on: ubuntu-latest
     steps:
+      - *common_actor_log
       - run: |
           echo "Log current actor"
           echo "------------------"          
-      - <<: *common_actor_log
       - run: |
           echo "Actor: $ACTOR"
           echo "Actor's id $ACTOR_ID"

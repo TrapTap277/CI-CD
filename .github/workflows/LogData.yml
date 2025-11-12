@@ -1,5 +1,5 @@
 ﻿name: Log Actor Data WorkFlow
-run-name: Log Actor📱
+run-name: Log Actor
 on: push
 
 env:

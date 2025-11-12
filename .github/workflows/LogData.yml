@@ -12,7 +12,7 @@ env:
 jobs:    
   LogCurrentActor: 
     runs-on: ubuntu-latest    
-    steps: &common_actor_log
+    steps:
       - run: echo "Current ACTOR - $ACTOR"
       - run: echo "Current EVENT - $EVENT"
       - run: echo "Current JOB - $JOB"
@@ -20,7 +20,6 @@ jobs:
   DetailedActorLog:
     runs-on: ubuntu-latest
     steps:
-      - *common_actor_log
       - run: |
           echo "Log current actor"
           echo "------------------"          

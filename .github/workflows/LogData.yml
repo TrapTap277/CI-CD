@@ -16,11 +16,9 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN_SECRET }}
       - name: Log Greetings
         id: foo
-        uses: ./
+        uses: ./ # переходы пути
         with:
           who-to-log: "Greet me!"
-        env:
-          RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}
       - name: Echo random
         run: echo random-number "$RANDOM_NUMBER"
         shell: bash

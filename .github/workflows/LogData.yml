@@ -10,7 +10,8 @@ jobs:
       - name: Checkout action repository
         uses: actions/checkout@v5
         with: 
-          path: TrapTap277/common-log-custom-action
+          repository: TrapTap277/common-log-custom-action
+          path: .
           token: ${{ secrets.ACCESS_TOKEN_SECRET }}
       - name: Pass Language
         uses: ./

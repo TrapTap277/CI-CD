@@ -14,12 +14,9 @@ jobs:
         with:
           repository: TrapTap277/common-log-custom-action
           token: ${{ secrets.ACCESS_TOKEN_SECRET }}
-          
-      - name: Debug repo
-        run: ls -R .
       - name: Log Greetings
         id: foo
-        uses: ./action
+        uses: .
         with:
           who-to-log: "Greet me!"
         env:

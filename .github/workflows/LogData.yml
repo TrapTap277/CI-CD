@@ -10,11 +10,11 @@ jobs:
     name: "Log common actor data"
     steps:
       - uses: actions/checkout@v5
-      - id: Foo
+      - id: foo
         uses: common-log-custom-action@main
         with:
           who-to-log: "Greet me!"
         run: echo random-number "$RANDOM_NUMBER"
         shell: bash
         env: 
-          RANDOM_NUMBER: ${{ steps.Foo.outputs.random-number }}
+          RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}

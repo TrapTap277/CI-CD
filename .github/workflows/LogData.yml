@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     name: "Log common actor data"
     steps:
-      - name: Checkout current repo
-      - uses: actions/checkout@v5
       - name: Checkout custom action repo
         uses: actions/checkout@v5
         with: 

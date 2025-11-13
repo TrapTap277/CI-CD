@@ -9,9 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     name: "Log common actor data"
     steps:
+      - name: Checkout current repo
       - uses: actions/checkout@v5
+      - name: Checkout custom action repo
+        uses: actions/checkout@v5
+        with: 
+          repository: TrapTap277/common-log-custom-action
+          token: '${{ secrets.ACCESS_TOKEN_SECRET }}'
+      - name: Log Greetings
       - id: foo
-        uses: common-log-custom-action@main
+        uses: TrapTap277/common-log-custom-action@main
         with:
           who-to-log: "Greet me!"
         run: echo random-number "$RANDOM_NUMBER"

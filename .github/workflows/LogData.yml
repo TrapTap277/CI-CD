@@ -17,4 +17,4 @@ jobs:
         with:
           programming-language: "C#"
       - name: Check on C# Language
-        run: echo "Is C# ${{ outputs.is-csharp }}"
+        run: echo "Is C# ${{ steps.check-language.outputs.programming-language }}"

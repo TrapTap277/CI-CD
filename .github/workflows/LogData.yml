@@ -1,19 +1,20 @@
 ﻿name: Log Actor Data WorkFlow
 run-name: Log Actor
-on: push
-
-env:
-  ACTOR: ${{ github.actor }}
-  ACTOR_ID: ${{ github.actor_id }}
-  EVENT: ${{ github.event_name }}
-  JOB: ${{ github.job }}
-  TRIGGERING_ACTOR: ${{ github.triggering_actor }}
-
-jobs:
-  test: &base_job # Define the anchor on first use
+on: 
+  - push
+  - workflow_dispatch
+    
+jobs: 
+  LogData:
     runs-on: ubuntu-latest
+    name: "Log common actor data"
     steps:
-      - name: Set up Node.js
-      - run: npm test
-
-  alt-test: *base_job # Reuse the entire job configuration
+      - uses: actions/checkout@v5
+      - id: Foo
+        uses: common-log-custom-action@main
+        with:
+          who-to-log: "Greet me!"
+        run: echo random-number "$RANDOM_NUMBER"
+        shell: bash
+        env: 
+          RANDOM_NUMBER: ${{ steps.Foo.outputs.random-number }}

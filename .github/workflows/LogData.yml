@@ -11,15 +11,18 @@ jobs:
     steps:
       - name: Checkout custom action repo
         uses: actions/checkout@v5
-        with: 
+        with:
           repository: TrapTap277/common-log-custom-action
           token: '${{ secrets.ACCESS_TOKEN_SECRET }}'
       - name: Log Greetings
-      - id: foo
+        id: foo
         uses: TrapTap277/common-log-custom-action@main
         with:
           who-to-log: "Greet me!"
+        env:
+          RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}
+      - name: Echo random
         run: echo random-number "$RANDOM_NUMBER"
         shell: bash
-        env: 
+        env:
           RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}

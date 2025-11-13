@@ -13,10 +13,10 @@ jobs:
         uses: actions/checkout@v5
         with:
           repository: TrapTap277/common-log-custom-action
-          token: '${{ secrets.ACCESS_TOKEN_SECRET }}'
+          token: ${{ secrets.ACCESS_TOKEN_SECRET }}
       - name: Log Greetings
         id: foo
-        uses: TrapTap277/common-log-custom-action@main
+        uses: ./common-log-custom-action
         with:
           who-to-log: "Greet me!"
         env:

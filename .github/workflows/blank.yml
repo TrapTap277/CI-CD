@@ -1,23 +1,23 @@
-name: Test Work Flow
-run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
-on:
-  push: 
-    branches: [main, master]
-
-jobs:
-  FirstJob:
-    if: github.ref_name == 'master'
-    
-    env: 
-      CURRENT_ACTOR: ${{ github.actor }}
-
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "This is my first job! Greetings!"
-      - run: echo "Current branch - ${{ github.ref_name }}"
-      - run: echo "Current actor is $CURRENT_ACTOR"
-  DependantJob:
-    needs: FirstJob
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo Dependant job is here!
+#name: Test Work Flow
+#run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
+#on:
+#  push: 
+#    branches: [main, master]
+#
+#jobs:
+#  FirstJob:
+#    if: github.ref_name == 'master'
+#    
+#    env: 
+#      CURRENT_ACTOR: ${{ github.actor }}
+#
+#    runs-on: ubuntu-latest
+#    steps:
+#      - run: echo "This is my first job! Greetings!"
+#      - run: echo "Current branch - ${{ github.ref_name }}"
+#      - run: echo "Current actor is $CURRENT_ACTOR"
+#  DependantJob:
+#    needs: FirstJob
+#    runs-on: ubuntu-latest
+#    steps:
+#      - run: echo Dependant job is here!

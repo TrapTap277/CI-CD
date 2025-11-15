@@ -1,20 +1,20 @@
-﻿name: Language Log Workflow
-run-name: Log you lovable language easily💖!
-
-on: [workflow_dispatch, push]    
-
-jobs: 
-  LogLanguage:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout action repository
-        uses: actions/checkout@v5
-        with: 
-          repository: TrapTap277/common-log-custom-action
-          token: ${{ secrets.ACCESS_TOKEN_SECRET }}
-      - name: Pass Language
-        uses: ./
-        with:
-          programming-language: "C#"
-      - name: Check on C# Language
-        run: echo "Is C# ${{ steps.check-language.outputs.programming-language }}"
+﻿#name: Language Log Workflow
+#run-name: Log you lovable language easily💖!
+#
+#on: [workflow_dispatch, push]    
+#
+#jobs: 
+#  LogLanguage:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout action repository
+#        uses: actions/checkout@v5
+#        with: 
+#          repository: TrapTap277/common-log-custom-action
+#          token: ${{ secrets.ACCESS_TOKEN_SECRET }}
+#      - name: Pass Language
+#        uses: ./
+#        with:
+#          programming-language: "C#"
+#      - name: Check on C# Language
+#        run: echo "Is C# ${{ steps.check-language.outputs.programming-language }}"

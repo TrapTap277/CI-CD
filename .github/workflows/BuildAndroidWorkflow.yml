@@ -9,6 +9,8 @@ jobs:
     name: Build Android via Cake
     runs-on: ubuntu-latest
     steps:
+      - name: Delete huge unnecessary tools folder
+        run: rm -rf /opt/hostedtoolcache
       # 1. Checkout проекта
       - name: Checkout repository
         uses: actions/checkout@v4

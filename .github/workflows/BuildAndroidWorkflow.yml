@@ -1,0 +1,9 @@
+﻿name: "Build Android"
+run-name: "Building Android with cake"
+
+jobs: 
+  BuildAndroid:
+    steps:
+      - name: Run the Cake script
+        uses: cake-build/cake-action@v3
+        with:

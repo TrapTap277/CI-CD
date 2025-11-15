@@ -7,9 +7,9 @@ on:
 jobs:
   build-android:
     name: Build Android via Cake
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      # 0. Освобождаем место под Docker
+      # 0. Освобождаем место под Docker. Consider adding a custom action named clear docker container
       - name: Free disk space
         run: |
           sudo docker system prune -af
@@ -23,9 +23,6 @@ jobs:
       # 1. Checkout проекта
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
-
       # 2. Cache Library (ускоряет билды)
       - name: Cache Unity Library
         uses: actions/cache@v3

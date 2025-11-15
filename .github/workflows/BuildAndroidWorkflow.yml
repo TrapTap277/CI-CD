@@ -49,6 +49,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: Android
+          buildMethod: "Editor.Builder.BuildAndroid"
       # 6. Загружаем результирующие билды
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

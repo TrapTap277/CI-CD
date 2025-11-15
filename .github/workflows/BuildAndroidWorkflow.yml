@@ -56,19 +56,18 @@ jobs:
           sudo rm -rf /usr/local/share/boost
           sudo rm -rf /opt/hostedtoolcache
           df -h
-      # 5. Запускаем Unity-контейнер + Cake внутри него
-      - name: Run Cake inside Unity Docker
-        run: |
-          docker pull unityci/editor:2022.3.20f1-android
-          docker run \
-            -e UNITY_LICENSE="${{ secrets.UNITY_LICENSE }}" \
-            -v ${{ github.workspace }}:/project \
-            -w /project \
-            unityci/editor:2022.3.20f1-android \
-            bash -c "
-              dotnet tool install -g cake.tool &&
-              ~/.dotnet/tools/dotnet-cake build.cake --target=Build-Android
-            "
+      - name: Run Cake inside Unity environment
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          # ВАЖНО: мы НЕ вызываем Unity build здесь
+          # GameCI просто запускает контейнер Unity
+          customParameters: |
+            sh -c "dotnet tool update -g cake.tool && \
+                   ~/.dotnet/tools/dotnet-cake build.cake --target=Build-Android"
 
       # 6. Загружаем результирующие билды
       - name: Upload artifacts

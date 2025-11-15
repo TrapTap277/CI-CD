@@ -2,15 +2,12 @@
 
 on:
   push:
-    branches:
-      - master
-      - dev
+    branches: [master, dev]
 
 jobs:
   build-android:
     name: Build Android via Cake
     runs-on: ubuntu-latest
-
     steps:
       # 1. Checkout проекта
       - name: Checkout repository
@@ -26,36 +23,13 @@ jobs:
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
-      # 3. Освобождаем место под Docker
-      - name: Free disk space
-        run: |
-          sudo docker system prune -af
-          sudo docker volume prune -f
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf /opt/hostedtoolcache
-          df -h
-      # 4. Устанавливаем dotnet, чтобы запустить Cake
+      # 3. Устанавливаем dotnet, чтобы запустить Cake
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: "8.0.x"
 
-      # 5. Запускаем Cake внутри контейнера Unity
-      - name: Free disk space
-        run: |
-          sudo docker system prune -af
-          sudo docker volume prune -f
-      - name: Free up GitHub Actions runner space
-        run: |
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf /opt/hostedtoolcache
-          df -h
+      # 4. Build an Android app with the help of Game CI 
       - name: Run Cake inside Unity environment
         uses: game-ci/unity-builder@v4
         env:
@@ -63,12 +37,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          # ВАЖНО: мы НЕ вызываем Unity build здесь
-          # GameCI просто запускает контейнер Unity
-          customParameters: |
-            sh -c "dotnet tool update -g cake.tool && \
-                   ~/.dotnet/tools/dotnet-cake build.cake --target=Build-Android"
-
+          targetPlatform: Android
       # 6. Загружаем результирующие билды
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

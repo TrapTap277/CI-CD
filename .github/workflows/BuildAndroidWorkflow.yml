@@ -1,9 +1,54 @@
-﻿name: "Build Android"
-run-name: "Building Android with cake"
+﻿name: Build Unity with Cake 🚀
 
-jobs: 
-  BuildAndroid:
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  build-android:
+    name: Build Android via Cake
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Run the Cake script
-        uses: cake-build/cake-action@v3
+      # 1. Checkout проекта
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
+          lfs: true
+
+      # 2. Cache Library (ускоряет билды)
+      - name: Cache Unity Library
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+      # 4. Устанавливаем dotnet, чтобы запустить Cake
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.x"
+
+      # 5. Запускаем Cake внутри контейнера Unity
+      - name: Run Cake inside Unity environment
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          # ВАЖНО: мы НЕ вызываем Unity build здесь
+          # GameCI просто запускает контейнер Unity
+          customParameters: |
+            sh -c "dotnet tool update -g cake.tool && \
+                   ~/.dotnet/tools/dotnet-cake build.cake --target=Build-Android"
+
+      # 6. Загружаем результирующие билды
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: AndroidBuild
+          path: artifacts

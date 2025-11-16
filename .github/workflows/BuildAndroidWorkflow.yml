@@ -5,13 +5,30 @@ on:
     branches: [master, dev]
 
 jobs:
-  build-android:
-    name: Build Android via Cake
+  run-tests:
+    name: Run tests
     runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run Cake inside Unity environment
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4.3.1
+        env:
+            UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+            UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+            UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          customImage: "C:\\Program Files\\Unity\\Hub\\Editor\\6000.2.6f2\\Editor\\Unity.exe"
+          projectPath: .
+          testMode: 'all'
+  build-android:
+    needs: run-tests
+    name: Build Android
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run Cake
         uses: cake-build/cake-action@v3
         with:
           verbosity: Diagnostic

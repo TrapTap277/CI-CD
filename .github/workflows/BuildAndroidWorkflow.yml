@@ -18,7 +18,7 @@ jobs:
             UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
             UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          customImage: "C:\\Program Files\\Unity\\Hub\\Editor\\6000.2.6f2\\Editor\\Unity.exe"
+          customImage: "C:\Program Files\Unity\Hub\Editor\6000.2.6f2\Editor\Unity.exe"
           projectPath: .
           testMode: 'all'
   build-android:

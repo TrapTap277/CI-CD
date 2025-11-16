@@ -9,44 +9,15 @@ jobs:
     name: Build Android via Cake
     runs-on: self-hosted
     steps:
-      # 0. Освобождаем место под Docker. Consider adding a custom action named clear docker container
-      - name: Free disk space
-        run: |
-          sudo docker system prune -af
-          sudo docker volume prune -f
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf /opt/hostedtoolcache
-          df -h
       # 1. Checkout проекта
       - name: Checkout repository
         uses: actions/checkout@v4
-      # 2. Cache Library (ускоряет билды)
-      - name: Cache Unity Library
-        uses: actions/cache@v3
-        with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
-      # 3. Устанавливаем dotnet, чтобы запустить Cake
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: "8.0.x"
-
       # 4. Build an Android app with the help of Game CI 
       - name: Run Cake inside Unity environment
-        uses: game-ci/unity-builder@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        uses: cake-build/cake-action@v3
         with:
-          targetPlatform: Android
-          buildMethod: "Editor.Builder.BuildAndroid"
+          verbosity: Diagnostic
+          dry-run: true
       # 6. Загружаем результирующие билды
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

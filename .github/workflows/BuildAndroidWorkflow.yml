@@ -9,16 +9,12 @@ jobs:
     name: Build Android via Cake
     runs-on: self-hosted
     steps:
-      # 1. Checkout проекта
       - name: Checkout repository
         uses: actions/checkout@v4
-      # 4. Build an Android app with the help of Game CI 
       - name: Run Cake inside Unity environment
         uses: cake-build/cake-action@v3
         with:
           verbosity: Diagnostic
-          dry-run: true
-      # 6. Загружаем результирующие билды
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:

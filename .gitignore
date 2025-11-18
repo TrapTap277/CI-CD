@@ -8,7 +8,6 @@
 # User-specific stuff
 /artifacts
 /.utmp
-/tools
 /MathStudying_BurstDebugInformation_DoNotShip
 /Assets/AddressableAssetsData
 .idea/**/workspace.xml
@@ -48,9 +47,6 @@
 # .idea/modules
 # *.iml
 # *.ipr
-
-# CMake
-cmake-build-*/
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml

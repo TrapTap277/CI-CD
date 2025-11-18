@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Allow PowerShell scripts
+        run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+        shell: powershell
       - name: Run Unity EditMode tests
         run: >
           "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe"

@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run EditMode tests
+      - name: Run Unity EditMode tests
         run: >
           "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe"
           -batchmode -quit
@@ -20,6 +20,7 @@ jobs:
           -runTests
           -testPlatform EditMode
           -testResults TestResults/editmode.xml
+          -logFile -
       - name: Run PlayMode tests
         run: >
           "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe"

@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run Tests scripts
-        run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-        shell: cmd
       - name: Run Unity EditMode tests
         shell: cmd
         run: >

@@ -12,17 +12,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Allow PowerShell scripts
+      - name: Run Tests scripts
         run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-        shell: powershell
+        shell: cmd
       - name: Run Unity EditMode tests
+        shell: cmd
         run: >
-          "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe"
-          -batchmode -quit -projectPath . -runTests -testPlatform EditMode -testResults TestResults/editmode.xml -logFile -
+          "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe" -batchmode -quit -projectPath . -runTests -testPlatform EditMode -testResults TestResults/editmode.xml -logFile -
       - name: Run PlayMode tests
+        shell: cmd
         run: >
-          "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe"
-          -batchmode -quit -projectPath . -runTests -testPlatform PlayMode -testResults TestResults/playmode.xml
+          "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe" -batchmode -quit -projectPath . -runTests -testPlatform PlayMode -testResults TestResults/playmode.xml
   build-android:
     needs: run-tests
     name: Build Android

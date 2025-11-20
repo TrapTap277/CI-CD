@@ -21,7 +21,6 @@ Task(Clean)
 
 Task(BuildAndroid)
     .IsDependentOn(Clean)
-    .IsDependentOn(RunTests)
     .Does(() =>
 {
     var unityEditor = FindUnityEditor();

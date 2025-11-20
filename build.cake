@@ -35,7 +35,6 @@ Task(BuildAndroid)
 });
 
 Task(Deploy)
-    .IsDependentOn(BuildAndroid)
     .Does(() =>
 {
     var webHook = EnvironmentVariable("DISCORD_WEBHOOK");

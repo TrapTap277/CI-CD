@@ -13,9 +13,13 @@ jobs:
         run: dotnet tool restore
         shell: bash
       - name: Run dotnet format (check only)
-        shell: bash
         run: |
-          dotnet format --verify-no-changes --severity info || echo "Formatting issues found"
+          Write-Host "Running dotnet format..."
+          dotnet format --verify-no-changes --severity info
+          if ($LASTEXITCODE -ne 0) {
+            Write-Warning "Formatting issues found (but continuing)"
+          }
+        shell: pwsh
       - name: Run Cake Script
         uses: cake-build/cake-action@v3
         with: 

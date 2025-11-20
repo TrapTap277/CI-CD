@@ -11,7 +11,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Restore dotnet tools
         run: dotnet tool restore
+        shell: bash
       - name: Run dotnet format (check only)
+        shell: bash
         run: |
           dotnet format --verify-no-changes --severity info || echo "Formatting issues found"
       - name: Run Cake Script

@@ -5,30 +5,10 @@ on: [push, pull_request]
 jobs:
   build:
     name: Build my project ✨
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      # Cache
-      - uses: actions/cache@v3
-        with:
-          path: Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
-      - name: Free disk space
-        run: |
-          sudo docker system prune -af
-          sudo docker volume prune -f
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf /opt/hostedtoolcache
-          df -h
-      # Test
       - name: Run tests
         uses: game-ci/unity-test-runner@v4
         env:
@@ -37,18 +17,13 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      # Build
-      - name: Build project
-        uses: game-ci/unity-builder@v4
+      - name: Run Cake Script
+        uses: cake-build/cake-action@v3
+        with: 
+          verbosity: 'Normal'
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: WebGL
-
-      # Output
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          ARTIFACT_PATH: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
       - uses: actions/upload-artifact@v4
         with:
           name: Build

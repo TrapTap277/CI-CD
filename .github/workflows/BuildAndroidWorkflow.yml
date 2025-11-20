@@ -13,7 +13,7 @@ jobs:
         shell: powershell
         run: |
           Write-Host "Running dotnet format..."
-          dotnet format --verify-no-changes --severity info
+          dotnet format --verify-no-changes --severity info --no-restore
           if ($LASTEXITCODE -ne 0) {
             Write-Warning "Formatting issues found (but continuing)"
             exit 0

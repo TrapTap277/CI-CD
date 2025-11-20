@@ -14,10 +14,7 @@ jobs:
       - name: Restore dotnet tools
         uses: xt0rted/dotnet-tool-restore@v1
       - name: Run dotnet format
-        uses: xt0rted/dotnet-format@v1
-        with: 
-          fail-fast: false
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+        run: dotnet format --verify-no-changes
       - name: Run Cake Script
         uses: cake-build/cake-action@v3
         with: 

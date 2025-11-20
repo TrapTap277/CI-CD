@@ -1,38 +1,48 @@
-﻿name: Build Unity with Cake 🚀
+﻿name: Actions 😎
 
-on:
-  push:
-    branches: [master, dev]
-  workflow_dispatch: 
+on: [push, pull_request]
 
 jobs:
-  run-tests:
-    name: Run tests
-    runs-on: self-hosted
+  build:
+    name: Build my project ✨
+    runs-on: ubuntu-latest
     steps:
+      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run Unity EditMode tests
-        shell: cmd
-        run: >
-          "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe" -batchmode -quit -projectPath . -runTests -testPlatform EditMode -testResults TestResults/editmode.xml -logFile -
-      - name: Run PlayMode tests
-        shell: cmd
-        run: >
-          "C:/Program Files/Unity/Hub/Editor/6000.2.6f2/Editor/Unity.exe" -batchmode -quit -projectPath . -runTests -testPlatform PlayMode -testResults TestResults/playmode.xml
-  build-android:
-    needs: run-tests
-    name: Build Android
-    runs-on: self-hosted
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Run Cake
-        uses: cake-build/cake-action@v3
         with:
-          verbosity: Diagnostic
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v3
         with:
-          name: AndroidBuild
-          path: artifacts
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
+
+      # Output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Build
+          path: build

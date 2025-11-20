@@ -9,13 +9,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Add dotnet-format problem matcher
+        uses: xt0rted/dotnet-format-problem-matcher@v1
+      - name: Restore dotnet tools
+        uses: xt0rted/dotnet-tool-restore@v1
+      - name: Run dotnet format
+        uses: xt0rted/dotnet-format@v1
         with: 
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Super Linter
-        uses: super-linter/super-linter@v8.2.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          fail-fast: false
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
       - name: Run Cake Script
         uses: cake-build/cake-action@v3
         with: 

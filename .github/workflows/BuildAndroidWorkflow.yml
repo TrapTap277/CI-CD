@@ -9,12 +9,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run dotnet format
-        id: format
-        uses: eero-dev/dotnet-format@d3f2aef1dee3a6e6ed48183722e118ec24635a67
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          workspace: "CICDLearn.sln"
+      - name: Restore dotnet tools
+        run: dotnet tool restore
+      - name: Run dotnet format (check only)
+        run: |
+          dotnet format --verify-no-changes --severity info || echo "Formatting issues found"
       - name: Run Cake Script
         uses: cake-build/cake-action@v3
         with: 

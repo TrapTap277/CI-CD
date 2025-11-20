@@ -9,9 +9,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Restore dotnet tools
-        run: dotnet tool restore
-        shell: bash
       - name: Run dotnet format (check only)
         run: |
           Write-Host "Running dotnet format..."

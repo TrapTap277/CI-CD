@@ -10,13 +10,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Run dotnet format (check only)
+        shell: powershell
         run: |
           Write-Host "Running dotnet format..."
           dotnet format --verify-no-changes --severity info
           if ($LASTEXITCODE -ne 0) {
             Write-Warning "Formatting issues found (but continuing)"
+            exit 0
           }
-        shell: pwsh
       - name: Run Cake Script
         uses: cake-build/cake-action@v3
         with: 

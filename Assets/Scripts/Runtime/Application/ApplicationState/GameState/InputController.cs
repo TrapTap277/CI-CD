@@ -21,14 +21,14 @@ namespace Application.GameState
             var vertical = Input.GetAxisRaw(Vertical);
             var direction = new Vector3(horizontal, vertical).normalized;
 
-            if(direction != Vector3.zero && _direction != -direction)
-            {
-                _direction = direction;
-                transform.SetX(transform.position.x + direction.x * (_movementSpeed * Time.deltaTime));
-                transform.SetY(transform.position.y + direction.y * (_movementSpeed * Time.deltaTime));
+            if(direction == Vector3.zero || _direction == -direction)
+                return;
+
+            _direction = direction;
+            transform.SetX(transform.position.x + direction.x * (_movementSpeed * Time.deltaTime));
+            transform.SetY(transform.position.y + direction.y * (_movementSpeed * Time.deltaTime));
                 
-                RotateTank();
-            }
+            RotateTank();
         }
 
         private void RotateTank()

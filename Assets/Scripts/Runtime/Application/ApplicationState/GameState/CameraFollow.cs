@@ -15,7 +15,7 @@ namespace Application.GameState
         
         private void Update()
         {
-            if(_target != null)
+            if(_target)
                 transform.position = Vector3.Slerp(transform.position, TargetPositionWithSavedZ(), Time.deltaTime * _speed);
         }
 

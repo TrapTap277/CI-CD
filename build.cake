@@ -8,10 +8,11 @@ const string BuildAndroid = "Build-Android";
 const string Deploy = "Deploy";
 const string RunEditorTests = "Run-Editor-Tests";
 const string RunTests = "Run-Tests";
+const string LintProject = "Lint-Project";
 const string RunPlayModeTests = "Run-PlayMode-Tests";
 const string ArtifactsPath = @"./artifacts";
 
-var targetTask = Argument("target", Deploy);
+var targetTask = Argument("target", LintProject);
 
 Task(Clean)
     .Does(() =>
@@ -35,34 +36,34 @@ Task(BuildAndroid)
 });
 
 Task(Deploy)
-    .Does(() =>
+    .Does(async  () =>
 {
     var webHook = EnvironmentVariable("DISCORD_WEBHOOK");
     var artifactURL = EnvironmentVariable("ARTIFACT_PATH");
     var content = @"Hey😎! A build has been successfully builded and deployed to discord ✅. Take you tea and have a nice day!💖
-    Btw, here is your derired build - " + artifactURL;
-    DiscordChatProvider discordChatProvider = new DiscordChatProvider(Context);
-    var urls = new List<string>() {
-        "https://cdn.discordapp.com/attachments/1006168298171400374/1441133863492517908/35178619_021_1bca.jpg?ex=6920b000&is=691f5e80&hm=264b7fd10806b40b178991ac727ee1c166784400946a36cb6af36c85fb68e5f8&",
-        "https://cdn.discordapp.com/attachments/1006168298171400374/1441133862871896084/61833642_003_5a78.jpg?ex=6920afff&is=691f5e7f&hm=caec12e20470d413132a0aa168c70ff5dfeb4419a0badf0727f9c51173beaa12&",
-        "https://cdn.discordapp.com/attachments/1006168298171400374/1441133864431915138/download_1.jpg?ex=6920b000&is=691f5e80&hm=8802016a40df47b05134f1ed8c6703ab2f130431a8fdda8715b27182c8dd260e&",
-        "https://cdn.discordapp.com/attachments/1006168298171400374/1441133864822112356/download.jpg?ex=6920b000&is=691f5e80&hm=050786ca1745fe486ffc55f6e44bf372b2feefeeb437a164dff13389b6eee3f5&",
-        "https://cdn.discordapp.com/attachments/1006168298171400374/1441133865665302633/3407a720ee8913a6c437fd01e72705a2.jpg?ex=6920b000&is=691f5e80&hm=d804edd221dd81fac7f28555fb9dea055d3feb9693bb7ef299141725b5fbb6e4&",
-        "https://cdn.discordapp.com/attachments/1006168298171400374/1441131860486000711/3407a720ee8913a6c437fd01e72705a2.jpg?ex=6920ae22&is=691f5ca2&hm=515532bf59e3c64980a26755cf84f4b7405c70d36dc4831c8658145b8cd9d847&"
-    };
+    Btw, here is your derired build - " + artifactURL + "check it out";
     
+    DiscordChatProvider discordChatProvider = new DiscordChatProvider(Context);
+
+    var client = new System.Net.Http.HttpClient();
+    var endpoint = "https://api.waifu.im/search?included_tags=waifu&gif=false&is_nsfw=true";
+    var json = await client.GetStringAsync(endpoint);
+    var result = System.Text.Json.JsonSerializer.Deserialize<WaifuResponse>(json);
+    var imageUrl = result.images[0].url;
     var rnd = new System.Random();
-    var url = urls[rnd.Next(0, urls.Count)];
 
     discordChatProvider.PostMessage(webHook, content, new DiscordChatMessageSettings() 
     {
         UserName = "Gojo Builder",
-        ThrowOnFail = true,
-        Tts = false,
-        AvatarUrl = new Uri(url)
+        AvatarUrl = new Uri(imageUrl)
     });
+});
 
-    var discordProvider = new DiscordProvider(Context);
+Task(LintProject)
+    .Does(() =>
+{
+    Information("Running C# linters as part of the build process...");
+    DotNetCoreBuild(projectFile);
 });
 
 Task(RunTests)
@@ -119,4 +120,14 @@ void PrintTestResults(string path)
 
     if (failed > 0)
         throw new Exception("Some tests failed.");
+}
+
+public class WaifuResponse
+{
+    public List<WaifuImage> images { get; set; }
+}
+
+public class WaifuImage
+{
+    public string url { get; set; }
 }

@@ -16,7 +16,7 @@ namespace Application.GameState
         private void OnDestroy() =>
             EventBus.UnSubscribe(this);
 
-        void IObjectDistanceUpdater.UpdateDistance(float distance) =>
+        public void UpdateDistance(float distance) =>
             _radarText.SetText(distance.ToString(CultureInfo.InvariantCulture));
     }
 

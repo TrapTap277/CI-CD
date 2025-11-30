@@ -5,6 +5,7 @@ using System.Xml.Linq;
 
 const string Clean = "Clean";
 const string BuildAndroid = "Build-Android";
+const string BuildWebGL = "Build-WebGL";
 const string Deploy = "Deploy";
 const string RunEditorTests = "Run-Editor-Tests";
 const string RunTests = "Run-Tests";
@@ -29,6 +30,22 @@ Task(BuildAndroid)
     UnityEditor(unityEditor.Path, new UnityEditorArguments() 
     {
         BuildTarget = BuildTarget.Android,
+        ProjectPath = ".",
+        ExecuteMethod = "Editor.Builder.BuildAndroid",
+        LogFile = "./artifacts/unity.log"
+    }, new UnityEditorSettings() {RealTimeLog = true});
+});
+
+
+Task(BuildWebGL)
+    .IsDependentOn(Clean)
+    .Does(() =>
+{
+    var unityEditor = FindUnityEditor();
+
+    UnityEditor(unityEditor.Path, new UnityEditorArguments()
+    {
+        BuildTarget = BuildTarget.,
         ProjectPath = ".",
         ExecuteMethod = "Editor.Builder.BuildAndroid",
         LogFile = "./artifacts/unity.log"

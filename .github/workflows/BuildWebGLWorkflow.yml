@@ -1,0 +1,30 @@
+name: Build WebGL Workflow
+run-name: Building your WebGL Telegram Game👻📦
+
+on: [push, workflow_dispatch]
+
+jobs:
+  BuildWebGL:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+      - name: Run Build cake script
+        uses: cake-build/cake-action@v3
+        with:
+          target: "Build-WebGL"
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build
+          path: ./artifacts
+      - name: Download build artifact
+        uses: actions/download-artifact@v5
+        with: 
+          name: Build
+          path: ./artifacts
+      - name: Deploy to Github Actions
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./artifacts

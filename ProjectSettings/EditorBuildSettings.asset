@@ -6,17 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ThirdParty/FPS/Scenes/IntroMenu.unity
-    guid: 56e3faabc5bb30f49a68bb8f1292f988
-  - enabled: 1
-    path: Assets/ThirdParty/FPS/Scenes/WinScene.unity
-    guid: 037d06fbede2b4041a843d9ee6fe750c
-  - enabled: 1
-    path: Assets/ThirdParty/FPS/Scenes/LoseScene.unity
-    guid: 72e5c65a45893714484002914e3fd521
-  - enabled: 1
-    path: Assets/ThirdParty/FPS/Scenes/MainScene.unity
-    guid: d794a2ef8ba31d847ad3c19d03e2ddb9
+    path: Assets/Scenes/TelegramAPITestScene.unity
+    guid: cfd3e197d89bc9c47b208ca470be1270
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3bc945c603382414db5f94be03a762af,
       type: 2}

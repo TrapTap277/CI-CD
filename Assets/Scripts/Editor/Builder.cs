@@ -28,10 +28,7 @@ namespace Editor
         [MenuItem("Build/📦 WebGL")]
         public static void BuildWebGL()
         {
-            var buildPath = $"./artifacts/WebGL_{Application.version}";
-
-            if(!Directory.Exists(buildPath))
-                Directory.CreateDirectory(buildPath);
+            var buildPath = "./artifacts";
 
             var buildOptions = new BuildPlayerOptions
             {

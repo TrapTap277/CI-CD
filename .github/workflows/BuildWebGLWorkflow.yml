@@ -12,8 +12,6 @@ jobs:
       - name: Build WebGL
         run: '& "C:\Program Files\Unity\Hub\Editor\6000.2.6f2\Editor\Unity.exe" -quit -batchmode -projectPath . -executeMethod Builder.BuildWebGL -logFile build.log'
         shell: powershell
-      - name: Show Unity log
-        run: cat build.log
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:

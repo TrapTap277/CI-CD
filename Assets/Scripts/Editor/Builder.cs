@@ -35,7 +35,7 @@ namespace Editor
                 locationPathName = buildPath,
                 target = BuildTarget.WebGL,
                 options = BuildOptions.None,
-                scenes = new[] { $"Assets/ThirdParty/FPS/Scenes/{SceneName}.unity" }
+                scenes = new[] { $"Assets/Scenes/{SceneName}.unity" }
             };
 
             var report = BuildPipeline.BuildPlayer(buildOptions);

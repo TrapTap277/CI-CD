@@ -28,6 +28,8 @@ namespace Editor
         [MenuItem("Build/📦 WebGL")]
         public static void BuildWebGL()
         {
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
+            PlayerSettings.WebGL.decompressionFallback = false;
             var buildPath = "./artifacts";
 
             var buildOptions = new BuildPlayerOptions

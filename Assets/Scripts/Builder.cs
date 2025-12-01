@@ -1,12 +1,11 @@
 ﻿using System;
-using System.IO;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 namespace CICD
 {
-    public class Builder
+    public static class Builder
     {
         private const string SceneName = "TelegramAPITestScene";
 
@@ -15,7 +14,7 @@ namespace CICD
         {
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
-                locationPathName = $"./artifacts/Build{Application.version}.apk",
+                locationPathName = $"./artifacts/Build{UnityEngine.Application.version}.apk",
                 target = BuildTarget.Android,
                 options = BuildOptions.None,
                 scenes = new[] { $"Assets/ThirdParty/FPS/Scenes/{SceneName}.unity" }

@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace Editor
+namespace CICD
 {
     public class Builder
     {

@@ -10,7 +10,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v5
       - name: Build WebGL
-        run: '& "C:\Program Files\Unity\Hub\Editor\6000.2.6f2\Editor\Unity.exe" -quit -batchmode -projectPath "D:/Projects/Unity/CICDLearn" -executeMethod Editor.Builder.BuildWebGL -logFile build.log'
+        run: '& "C:\Program Files\Unity\Hub\Editor\6000.2.6f2\Editor\Unity.exe" -quit -batchmode -projectPath "D:/Projects/Unity/CICDLearn" -executeMethod CICD.Builder.BuildWebGL -logFile build.log'
         shell: powershell
 
       - name: Upload Artifacts
